@@ -12,7 +12,7 @@ const KillerSchema = new Schema({
     victimcount: Number,
     victims: Array,
     motive: Array,
-    description: String,
+    description: {type: String, required: true},
     status: String
 
 });
