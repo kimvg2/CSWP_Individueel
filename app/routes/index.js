@@ -1,7 +1,10 @@
 const killerRoutes = require('./killer_routes');
+const motiveRoutes = require('./motive_routes');
+const countryRoutes = require('./country_routes');
 
 // Export the routes
 module.exports = function(app, db) {
     killerRoutes(app, db);
-    // Other route groups could go here, in the future
+    motiveRoutes(app, db);
+    countryRoutes(app, db);
 };
