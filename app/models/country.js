@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const CountrySchema = new Schema({
     name: {type: String, required: true},
-    continent: {type: Continent,  required: true},
+    continent: {type: String,  required: true},
     firstmurder: String,
     killers: Array
 

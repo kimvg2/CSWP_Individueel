@@ -2,7 +2,14 @@ const Killer = require('../models/killer');
 //Wrap the route in a function
 module.exports = function(app, db) {
 
-    app.get('/killer', (req, res) => res.send('GET /killer'));
+    app.get('/killer', (req, res) => {
+        Killer.find(function(err, killer) {
+            if (err) {
+                res.send(err);
+            }
+            res.json(killer);
+        });
+    });
 
     app.post('/killer', (req, res) => {
         //Check if all arguments are given, if not: send 400 Bad Request
@@ -39,7 +46,29 @@ module.exports = function(app, db) {
         }
     });
 
-    app.put('/killer', (req, res) => res.send('PUT /killer'));
+    app.put('/killer', (req, res) => {
+        Killer.find(function(err, killer) {
+            if (err) {
+                res.send(err);
+            }else {
+                killer.photo = req.body.photo;
+                killer.name = req.body.name;
+                killer.alias = req.body.alias;
+                killer.birthdate = req.body.birthdate;
+                killer.birthplace = req.body.birthplace;
+                killer.countryactive = req.body.countryactive;
+                killer.dateactive = req.body.dateactive;
+                killer.victimcount = req.body.victimcount;
+                killer.victims = req.body.victims;
+                killer.motive = req.body.motive;
+                killer.description = req.body.description;
+                killer.status = req.body.status;
+
+                killer.save()
+                    .then(() => res.status(200).send("Killer " + name + " updated."));
+            }
+        });
+    });
 
     app.delete('/killer', (req, res) => res.send('DELETE /killer'));
 };
