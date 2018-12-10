@@ -2,13 +2,20 @@ const Country = require('../models/country');
 //Wrap the route in a function
 module.exports = function(app, db) {
 
-    app.get('/country', (req, res) => res.send('GET /country'));
+    app.get('/country', (req, res) => {
+        Country.find(function(err, country) {
+            if (err) {
+                res.send(err);
+            }
+            res.json(country);
+        });
+    });
 
     app.post('/country', (req, res) => {
         //Check if all arguments are given, if not: send 400 Bad Request
         //name, continent, firstmurder, killers
         if (req.body.name === undefined || req.body.name === null || req.body.name.length < 1 ||
-            req.body.continent === undefined || req.body.continent === null || req.body.birthdate.continent < 1) {
+            req.body.continent === undefined || req.body.continent === null || req.body.continent.length < 1) {
             res.status(400).send("Please provide name and continent");
         } else {
             const name = req.body.name;
