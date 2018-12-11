@@ -46,27 +46,38 @@ module.exports = function(app, db) {
         }
     });
 
-    app.put('/killer', (req, res) => {
-        Killer.find(function(err, killer) {
-            if (err) {
-                res.send(err);
-            }else {
-                killer.photo = req.body.photo;
-                killer.name = req.body.name;
-                killer.alias = req.body.alias;
-                killer.birthdate = req.body.birthdate;
-                killer.birthplace = req.body.birthplace;
-                killer.countryactive = req.body.countryactive;
-                killer.dateactive = req.body.dateactive;
-                killer.victimcount = req.body.victimcount;
-                killer.victims = req.body.victims;
-                killer.motive = req.body.motive;
-                killer.description = req.body.description;
-                killer.status = req.body.status;
-
-                killer.save()
-                    .then(() => res.status(200).send("Killer " + name + " updated."));
+    app.put('/killer/:_id', (req, res) => {
+        // Find note and update it with the request body
+        Killer.findOneAndUpdate(req.params._id, {
+            photo: req.body.photo,
+            name: req.body.name,
+            alias: req.body.alias,
+            birthdate: req.body.birthdate,
+            birthplace: req.body.birthplace,
+            countryactive: req.body.countryactive,
+            dateactive: req.body.dateactive,
+            victimcount: req.body.victimcount,
+            victims: req.body.victims,
+            motive: req.body.motive,
+            description: req.body.description,
+            status: req.body.status
+        }, {new: true})
+            .then(killer => {
+                if(!killer) {
+                    return res.status(404).send({
+                        message: "Killer not found with id " + req.params._id
+                    });
+                }
+                res.send(killer);
+            }).catch(err => {
+            if(err.kind === 'ObjectId') {
+                return res.status(404).send({
+                    message: "Note not found with id " + req.params._id
+                });
             }
+            return res.status(500).send({
+                message: "Error updating note with id " + req.params._id
+            });
         });
     });
 
