@@ -2,8 +2,17 @@ const Killer = require('../models/killer');
 //Wrap the route in a function
 module.exports = function(app, db) {
 
-    app.get('/killer', (req, res) => {
-        Killer.find(function(err, killer) {
+    app.get('/killers', function (req, res) {
+        Killer.find({}, (err, killers) => {
+            if (err) {
+                res.send(err);
+            }
+            res.json(killers);
+        })
+    });
+
+    app.get('/killer/:_id', (req, res) => {
+        Killer.find(req.params._id, function(err, killer) {
             if (err) {
                 res.send(err);
             }

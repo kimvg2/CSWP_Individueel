@@ -1,0 +1,21 @@
+<!--The content below is only a placeholder and can be replaced.-->
+
+<body>
+  <div class="title">
+    <h1 id="home_title">{{title}}</h1>
+  </div>
+
+  <div class="container">
+    <div class="part">
+      <button>Motives</button>
+    </div>
+    <div class="part">
+      <button [routerLink]="killers">Killers</button>
+    </div>
+    <div class="part">
+      <button>Countries</button>
+    </div>
+  </div>
+</body>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,29 @@
+body {
+  width: 100%;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.container {
+  width: 100%;
+  text-align: center;
+}
+
+.part {
+  width: 33%;
+  margin: 0;
+  float: left;
+}
+
+button {
+  width: 70%;
+  height: 150px;
+  background: black;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 25px;
+}
